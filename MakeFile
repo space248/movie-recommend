@@ -1,0 +1,17 @@
+CXX = g++
+CXXFLAGS = -Wall -g
+
+movie_recommender: main.o Movie.o MovieManager.o
+	$(CXX) $(CXXFLAGS) -o movie_recommender main.o Movie.o MovieManager.o
+
+main.o: main.cpp MovieManager.h
+	$(CXX) $(CXXFLAGS) -c main.cpp
+
+Movie.o: Movie.cpp Movie.h
+	$(CXX) $(CXXFLAGS) -c Movie.cpp
+
+MovieManager.o: MovieManager.cpp MovieManager.h Movie.h
+	$(CXX) $(CXXFLAGS) -c MovieManager.cpp
+
+clean:
+	rm -f *.o movie_recommender

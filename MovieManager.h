@@ -1,14 +1,15 @@
 #pragma once
-
 #include <vector>
-#include "movie.h"
+#include <string>
+#include "Movie.h"
 
 class MovieManager {
 private:
     std::vector<Movie> movies;
-
 public:
-    MovieManager();
-    void addMovie(const Movie& m);
-    void printAllMovies() const;
+    void addMovie(const Movie& movie);
+    void removeMovie(const std::string& title);
+    Movie* findByTitle(const std::string& title);
+    void sortByRating();
+    void printAll() const;
 };

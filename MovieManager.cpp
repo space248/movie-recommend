@@ -1,14 +1,28 @@
 #include "MovieManager.h"
+#include <algorithm>
 #include <iostream>
 
-MovieManager::MovieManager() {
-    // 기본 생성자 
+void MovieManager::addMovie(const Movie& movie) {
+    movies.push_back(movie);
 }
 
-void MovieManager::addMovie(const Movie& m) {
-    movies.push_back(m); // 벡터에 영화 밀어넣기
+Movie* MovieManager::findByTitle(const std::string& title) {
+    for (Movie& m : movies) {
+        if (m.getTitle() == title) return &m;
+    }
+    return nullptr;
 }
 
-void MovieManager::printAllMovies() const {
-    // 나중에 연산자 오버로딩 구현 후 채울 부분
+void MovieManager::sortByRating() {
+    std::sort(movies.begin(), movies.end());
+}
+
+void MovieManager::printAll() const {
+    if (movies.empty()) {
+        std::cout << "등록된 영화가 없습니다.\n";
+        return;
+    }
+    for (const Movie& m : movies) {
+        std::cout << m << std::endl;
+    }
 }

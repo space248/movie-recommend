@@ -1,20 +1,26 @@
-# Makefile — Movie 클래스 빌드
-CXX      = g++
-CXXFLAGS = -std=c++17 -Wall -g
-TARGET   = movie_app
-OBJS     = main.o movie.o
+CXX = g++
+CXXFLAGS = -Wall -g
+
+OBJS = main.o Movie.o MovieManager.o User.o UserManager.o
+TARGET = movie_recommender
 
 $(TARGET): $(OBJS)
-	$(CXX) $(CXXFLAGS) -o $@ $^
+	$(CXX) $(CXXFLAGS) -o $(TARGET) $(OBJS)
 
-main.o: main.cpp movie.h
-	$(CXX) $(CXXFLAGS) -c $<
+main.o: main.cpp MovieManager.h UserManager.h
+	$(CXX) $(CXXFLAGS) -c main.cpp
 
-movie.o: movie.cpp movie.h
-	$(CXX) $(CXXFLAGS) -c $<
+Movie.o: Movie.cpp Movie.h
+	$(CXX) $(CXXFLAGS) -c Movie.cpp
 
-.PHONY: clean run
+MovieManager.o: MovieManager.cpp MovieManager.h Movie.h
+	$(CXX) $(CXXFLAGS) -c MovieManager.cpp
+
+User.o: User.cpp User.h
+	$(CXX) $(CXXFLAGS) -c User.cpp
+
+UserManager.o: UserManager.cpp UserManager.h User.h
+	$(CXX) $(CXXFLAGS) -c UserManager.cpp
+
 clean:
-	rm -f $(OBJS) $(TARGET)
-run: $(TARGET)
-	./$(TARGET)
+	rm -f *.o $(TARGET)
